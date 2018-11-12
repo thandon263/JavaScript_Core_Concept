@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simple Async Flow</title>
+</head>
+<body>
+    <!-- Main root folder for the app -->
+    <div id="root"></div>
+
+    <script>
+
+        // Simple function simulating live loading App.
+        function callback(event){
+            // create root node
+            let root = document.getElementById("root")
+            let app = App()
+
+            root.appendChild(app)
+        }
+        
+        function App() {
+            let component = document.createElement("div")
+            let heading = document.createElement("h1")
+            let input = document.createElement("input")
+            let button = document.createElement("button")
+            let todoContainer = document.createElement("div")
+
+            component.setAttribute("class", "main")
+            heading.innerText = "Dev360 Application"
+            input.placeholder = "Add Todo ... "
+            input.setAttribute("id", "todo-input")
+            button.innerText = "Add Todo"
+            // Insert CSS Styles 
+            // input
+            input.style.width = "300px"
+            input.style.padding = "5px 10px"
+            input.style.fontWeight = "600"
+            input.style.marginTop = "10px"
+            input.style.fontSize = "13.5pt"
+            // todo container
+            todoContainer.style.width = "420px"
+            todoContainer.style.height = "auto"
+            todoContainer.style.border = "1px solid #eee"
+            todoContainer.style.marginTop = "20px"
+            // button
+            button.style.marginLeft = "10px"
+            button.style.width = "90px"
+            button.style.height = "35px"
+            
+
+            async function addTodo(component, value) {
+                let todo = document.createElement("span")
+                // set innerText to value    
+                todo.innerText = value
+                todo.style.color = "green"
+                todo.style.backgroundColor = "lightGreen"
+                todo.style.textAlign = "center"
+
+                await alert(value)
+            }
+            
+            // onclick handler for the Todo
+            button.addEventListener("onclick", addTodo(todoContainer, input.value))
+
+            let list = [heading, input, button, todoContainer]    
+
+            for(let i in list) {
+                component.appendChild(list[i])
+            }
+
+            return component
+        }
+
+
+
+        window.addEventListener("load", callback())
+    </script>
+</body>
+</html>
